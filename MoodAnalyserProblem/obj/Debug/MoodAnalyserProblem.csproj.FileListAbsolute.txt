@@ -1,0 +1,7 @@
+C:\Users\kholi\source\repos\MoodAnalyserProblem\MoodAnalyserProblem\bin\Debug\MoodAnalyserProblem.exe.config
+C:\Users\kholi\source\repos\MoodAnalyserProblem\MoodAnalyserProblem\bin\Debug\MoodAnalyserProblem.exe
+C:\Users\kholi\source\repos\MoodAnalyserProblem\MoodAnalyserProblem\bin\Debug\MoodAnalyserProblem.pdb
+C:\Users\kholi\source\repos\MoodAnalyserProblem\MoodAnalyserProblem\obj\Debug\MoodAnalyserProblem.csprojAssemblyReference.cache
+C:\Users\kholi\source\repos\MoodAnalyserProblem\MoodAnalyserProblem\obj\Debug\MoodAnalyserProblem.csproj.CoreCompileInputs.cache
+C:\Users\kholi\source\repos\MoodAnalyserProblem\MoodAnalyserProblem\obj\Debug\MoodAnalyserProblem.exe
+C:\Users\kholi\source\repos\MoodAnalyserProblem\MoodAnalyserProblem\obj\Debug\MoodAnalyserProblem.pdb
