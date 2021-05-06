@@ -7,46 +7,49 @@ namespace MsTestMoodAnalyser
     [TestClass]
     public class UnitTest1
     {/// <summary>
-     /// TC3.1 Nullmood Using CustomException Return Null
+     /// UC4.1 Expected to return the MoodAnalyser Object by creating object using MoodAnalyserFactory
      /// </summary>
+     ///  Given_MoodAnalyser Class Name Should Return MoodAnalyser Object()
         [TestMethod]
-        public void Given_Nullmood_Using_CustomException_Return_Null()
+        public void Given_MoodAnalyser_ClassName_ShouldReturn_MoodAnalyseObject()
         {
-            //Arrange;
-            MoodAnalyser mood = new MoodAnalyser(null);
-            string expected = "Mood should not be null";
+            object expected = new MoodAnalyser();
+            object obj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser");
+            expected.Equals(obj);
+        }
+
+        /// <summary>
+        ///TC4.2 Class Name When Improper Should Throw MoodAnalysisException
+        /// </summary>
+         [TestMethod]
+        public void GivenInvalidClassName_ShouldThrow_MoodAnalyserException()
+        {
+            string expected = "Class not Found";
             try
             {
-                //Act
-                string actual = mood.Analyser();
+                object obj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyserProblem.Class", "MoodAnalyser");
             }
-            catch (MoodAnalyserException exception)
+            catch (MoodAnalyserException e)
             {
-                //Asert
-                Assert.AreEqual(expected, exception.Message);
+                Assert.AreEqual(expected, e.Message);
             }
         }
         /// <summary>
-        /// TC3.2 Emptymood Using CustomException Return empty
+        /// TC4.3Given Class When Constructor Not Proper Should Throw MoodAnalysisException
         /// </summary>
+
         [TestMethod]
-        public void Given_Emptymood_Using_CustomException_Return_Empty()
+        public void GivenClass_WhenNotProper_Constructor_ShouldThrow_MoodAnalyserException()
         {
-            //Arrange;
-            MoodAnalyser mood = new MoodAnalyser("");
-            string expected = "Mood should not be empty";
+            string expected = "Constructor is not Found";
             try
             {
-                //Act
-                string actual = mood.Analyser();
+                object obj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser", "sampleClass");
             }
-            catch (MoodAnalyserException exception)
+            catch (MoodAnalyserException e)
             {
-                //Asert
-                Assert.AreEqual(expected, exception.Message);
+                Assert.AreEqual(expected, e.Message);
             }
         }
     }
 }
- 
-
