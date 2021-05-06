@@ -6,17 +6,15 @@ namespace MsTestMoodAnalyser
 {
     [TestClass]
     public class UnitTest1
-    {
-
-        /// <summary>
-        /// TC1.1:Given Iam in sad mood should Return sad.
-        /// </summary>
+    {/// <summary>
+     /// TC2.1 nullmood should return happy
+     /// </summary>
         [TestMethod]
-        public void Given_Sadmood_Expecting_Sad_Results()
+        public void Given_nullmood_Expecting_Happy_Results()
         {
             //Arrange;
-            MoodAnalyser mood = new MoodAnalyser("I am in sad mood");
-            string expected = "sad";
+            MoodAnalyser mood = new MoodAnalyser(null);
+            string expected = "happy";
 
             //Act
             string actual = mood.Analyser();
@@ -24,21 +22,6 @@ namespace MsTestMoodAnalyser
             //Asert
             Assert.AreEqual(expected, actual);
         }
-
-        [TestMethod]
-        public void Given_Happymood_Expecting_Happy_Results()
-        {
-            //    //Arrange;
-            MoodAnalyser mood = new MoodAnalyser("I am in happy mood");
-            string expected = "happy";
-
-            //    //Act
-            string actual = mood.Analyser();
-
-            //Asert
-            Assert.AreEqual(expected, actual);
-        }
     }
-
 }
 

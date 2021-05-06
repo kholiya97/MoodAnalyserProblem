@@ -10,34 +10,41 @@ namespace MoodAnalyserProblem
     {
 
         //instance variable
-        string Message;
+        string message;
 
         //parameterized constructor for initializing instance member
         public MoodAnalyser(string message)
         {
-            Message = message;
+            this.message = message;
         }
 
         //Analyser method to find mood
-        public string Analyser() //check msg passing into the constructor is contain(happy) then written happy else sad
+        public string Analyser() //check msg passing into the constructor 
         {
-            if (Message.ToLower().Contains("happy"))
+            try
+            {
+                if (this.message.ToLower().Contains("happy"))
+                {
+                    return "happy";
+                }
+                else
+                {
+                    return "no mood";
+                }
+            }
+            catch
             {
                 return "happy";
             }
-            else
-            {
-                return " sad";
-            }
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("----Welcome To Mood Analyser----");
-            Console.Read();
         }
     }
 
+   class Program
+    {
+        static void Main(string[] args)
+        {
+            //Console.WriteLine("----Welcome To Mood Analyser----");
+            //Console.Read();
+        }
+    }
 }
