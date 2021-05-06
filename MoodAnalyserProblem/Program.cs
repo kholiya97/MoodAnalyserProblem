@@ -11,41 +11,48 @@ namespace MoodAnalyserProblem
     public class MoodAnalyser
     {
 
-        //instance variable
         string message;
 
-        //default constructor for initializing instance member
+        /// <summary>
+        /// parameterless constructor
+        /// </summary>
         public MoodAnalyser()
         {
-
         }
 
-        //Analyser method to find mood
-        public string Analyser() //check msg passing into the constructor 
+        /// <summary>
+        /// Parameterised constructor for initializing instance member
+        /// </summary>
+        public MoodAnalyser(string message)
         {
-            //exception
+            this.message = message;
+        }
+
+
+        ///Analyser method to find mood        
+        public string Analyser(string message)
+        {
             try
             {
-                if (this.message.Equals(string.Empty))
+                if (message.Equals(string.Empty))
                 {
-                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be EMPTY");
                 }
-                if (this.message.ToLower().Contains("happy"))
+                if (this.message.Contains("sad"))
                 {
-                    return "happy";
+                    return "SAD";
                 }
                 else
                 {
-                    return "sad";
+                    return "HAPPY";
                 }
             }
             catch (NullReferenceException)
             {
-                //return ex.Message;
-                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NULL_EXCEPTION, "Mood should not be null");
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NULL_EXCEPTION, "Mood should not be NULL");
             }
-
         }
+
     }
     public class MoodAnalyserException : Exception
     {
@@ -54,6 +61,8 @@ namespace MoodAnalyserProblem
         /// </summary>
         /// creating type variable of type ExceptionType
         ExceptionType type;
+        readonly string message;
+
         public enum ExceptionType
         {
             NULL_EXCEPTION, EMPTY_EXCEPTION, NO_SUCH_FIELD, NO_SUCH_METHOD, NO_SUCH_CLASS, OBJECT_CREATION_ISSUE
@@ -66,11 +75,12 @@ namespace MoodAnalyserProblem
         public MoodAnalyserException(ExceptionType type, string message) : base(message)
         {
             this.type = type;
+            this.message = message;
         }
     }
     public class MoodAnalyserFactory
     {
-        public static object CreateMoodAnalyse(string className, string constructorName)
+        public static object CreateMoodAnalyser(string className, string constructorName)
         {
             string pattern = @"." + constructorName + "$";
             Match result = Regex.Match(className, pattern);
@@ -92,13 +102,38 @@ namespace MoodAnalyserProblem
                 throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Constructor is Not Found");
             }
         }
+
+        //UC5-Reflection using parameterized constructor
+        public static object CreatedMoodAnalyserUsingParameterizedConstructor(string className, string constructorName, string message)
+        {
+            Type type = typeof(MoodAnalyser);
+            if (type.Name.Equals(className) || type.FullName.Equals(className))
+            {
+                if (type.Name.Equals(constructorName))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
+                    object instance = constructorInfo.Invoke(new object[] { message });
+                    return instance;
+                }
+                else
+                {
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Constructor is not found");
+                }
+            }
+            else
+            {
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+
+            }
+        }
     }
     class Program
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("----Welcome To Mood Analyser----");
+            Console.WriteLine("----Welcome To Mood Analyser----");
             //Console.Read();
+            MoodAnalyser mood = new MoodAnalyser();
         }
     }
 }
