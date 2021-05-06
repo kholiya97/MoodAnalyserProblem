@@ -51,5 +51,33 @@ namespace MsTestMoodAnalyser
                 Assert.AreEqual(expected, e.Message);
             }
         }
+
+
+
+        /// Test Case 6.1 Given Happy Message Using Reflection When Proper Should Return HAPPY Mood 
+
+        [TestMethod]
+        public void GivenHappyMessage_UsingReflection_Should_ReturnHappy()
+        {
+            string message = MoodAnalyserFactory.InvokeMethod("MoodAnalyzer.MoodAnalyser", "GetMood", "HAPPY");
+            Assert.AreEqual("HAPPY", message);
+        }
+
+        /// <summary>
+        /// Test Case 6.2 
+        /// Given Happy message when improper method should throw MoodAnalyserException
+        /// </summary>
+        [TestMethod]
+        public void GivenHappyMessage_UsingReflection_WhenIncorrectMethod_shouldThrow_MoodAnayserException()
+        {
+            try
+            {
+                string message = MoodAnalyserFactory.InvokeMethod("MoodAnalyzer.MoodAnalyser", "getMethod", "HAPPY");
+            }
+            catch (MoodAnalyserException e)
+            {
+                Assert.AreEqual(MoodAnalyserException.ExceptionType.INVALID_INPUT, e.Message);
+            }
+        }
     }
 }

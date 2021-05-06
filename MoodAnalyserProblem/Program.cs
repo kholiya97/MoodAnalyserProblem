@@ -65,7 +65,7 @@ namespace MoodAnalyserProblem
 
         public enum ExceptionType
         {
-            NULL_EXCEPTION, EMPTY_EXCEPTION, NO_SUCH_FIELD, NO_SUCH_METHOD, NO_SUCH_CLASS, OBJECT_CREATION_ISSUE
+            NULL_EXCEPTION, EMPTY_EXCEPTION, NO_SUCH_FIELD, INVALID_INPUT, NO_SUCH_METHOD, NO_SUCH_CLASS, OBJECT_CREATION_ISSUE
         }
         /// <summary>
         /// parameterized contructor sets the Exception Type and message.
@@ -124,6 +124,27 @@ namespace MoodAnalyserProblem
             {
                 throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, "Class not found");
 
+            }
+        }
+
+        ///UC6 Use Reflection to Invoke the method
+
+        public static string InvokeMethod(string className, string methodName, string message)
+        {
+            Type type1 = typeof(MoodAnalyser);
+            try
+            {
+                ConstructorInfo constructor = type1.GetConstructor(new[] { typeof(string) });
+                object obj = MoodAnalyserFactory.CreatedMoodAnalyserUsingParameterizedConstructor(className, methodName, message);
+                Assembly excutingAssambly = Assembly.GetExecutingAssembly();
+                Type type = excutingAssambly.GetType(className);
+                MethodInfo getMoodMethod = type.GetMethod(methodName);
+                string msg = (string)getMoodMethod.Invoke(obj, null);
+                return msg;
+            }
+            catch (Exception)
+            {
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.INVALID_INPUT, "No Such Method");
             }
         }
     }
